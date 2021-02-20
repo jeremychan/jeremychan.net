@@ -1,11 +1,8 @@
 import React from 'react';
 
 import PropTypes from 'prop-types';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import faTwitter from '@fortawesome/fontawesome-free-brands/faTwitter'
-import faFacebook from '@fortawesome/fontawesome-free-brands/faFacebook'
-import faInstagram from '@fortawesome/fontawesome-free-brands/faInstagram'
-import faGithub from '@fortawesome/fontawesome-free-brands/faGithub'
+import Social from './Social';
+
 
 class Main extends React.Component {
   render() {
@@ -58,20 +55,7 @@ class Main extends React.Component {
               <li><input type="reset" value="Reset" /></li>
             </ul>
           </form>
-          <ul className="icons">
-            <li><a href="#">
-              <FontAwesomeIcon icon={faTwitter} />
-            </a></li>
-            <li><a href="#">
-              <FontAwesomeIcon icon={faFacebook} />
-            </a></li>
-            <li><a href="#">
-              <FontAwesomeIcon icon={faInstagram} />
-            </a></li>
-            <li><a href="#">
-              <FontAwesomeIcon icon={faGithub} />
-            </a></li>
-          </ul>
+          <Social />
           {close}
         </article>
 
