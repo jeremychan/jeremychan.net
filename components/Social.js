@@ -1,5 +1,4 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import faTwitter from '@fortawesome/fontawesome-free-brands/faTwitter'
 import faLinkedin from '@fortawesome/fontawesome-free-brands/faLinkedin'
 import faMedium from '@fortawesome/fontawesome-free-brands/faMedium'
 import faGithub from '@fortawesome/fontawesome-free-brands/faGithub'
@@ -13,7 +12,7 @@ const Social = (props) => (
         <li><a href="https://github.com/jeremychan" target="_blank">
             <FontAwesomeIcon icon={faGithub} />
         </a></li>
-        <li><a href="https://medium.com/@jeremy_chan" target="_blank">
+        <li><a href="https://medium.com/@jeremy-chan" target="_blank">
             <FontAwesomeIcon icon={faMedium} />
         </a></li>
     </ul>

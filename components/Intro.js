@@ -3,7 +3,7 @@ const Intro = (props) => (
         <span className="image main"><img src="/static/images/aboutpic.jpg" alt="" /></span>
 
         <div>
-            <h1>About Me</h1>
+            <h3>About Me</h3>
 
             <p>I'm a Software Engineer. I grew up in Hong Kong and moved to London in 2018.</p>
 
