@@ -9,9 +9,8 @@ const Blog = (props) => {
     const [posts, setPosts] = useState([]);
 
     useEffect(() => {
-        console.log("fetching" + process.env.NEXT_PUBLIC_FUNCTIONS_BASE_URL + '/api/medium');
         axios
-            .get(process.env.NEXT_PUBLIC_FUNCTIONS_BASE_URL + '/api/medium')
+            .get('/api/medium')
             .then(res => res.data)
             .then(res => {
                 setPosts(res);
@@ -23,7 +22,7 @@ const Blog = (props) => {
     return (
         <div>
             <h3>
-                Blog Posts
+                Latest Blog Posts
             </h3>
 
             {isLoading && <p>Loading recent blog posts from Medium...</p>}
