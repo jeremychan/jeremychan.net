@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import Contact from './Contact';
 import Intro from './Intro';
 import Blog from './Blog';
+import Talks from './Talks';
 
 
 class Main extends React.Component {
@@ -21,6 +22,11 @@ class Main extends React.Component {
 
         <article id="blog" className={`${this.props.article === 'blog' ? 'active' : ''} ${this.props.articleTimeout ? 'timeout' : ''}`} style={{ display: 'none' }}>
           <Blog />
+          {close}
+        </article>
+
+        <article id="talks" className={`${this.props.article === 'talks' ? 'active' : ''} ${this.props.articleTimeout ? 'timeout' : ''}`} style={{ display: 'none' }}>
+          <Talks />
           {close}
         </article>
 
