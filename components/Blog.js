@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import faMedium from '@fortawesome/fontawesome-free-brands/faMedium'
+import faMedium from '@fortawesome/fontawesome-free-brands/faMediumM'
 
 const axios = require("axios");
 
@@ -30,18 +30,16 @@ const Blog = (props) => {
                 <a href={p.link} target="_blank">
                     <div key={index} className="card">
                         <div>{p.title}</div>
-                        <div class="text-right">
+                        <div className="text-right">
                             {new Date(p.pubDate).toLocaleDateString()}
                         </div>
                     </div>
                 </a>
             ))}
 
-            <ul className="icons">
-                <li><a href="https://medium.com/@jeremy-chan" target="_blank">
-                    <FontAwesomeIcon icon={faMedium} />
-                </a></li>
-            </ul>
+            <a href="https://medium.com/@jeremy-chan" target="_blank">
+                Read all on Medium
+            </a>
         </div>
     )
 };
