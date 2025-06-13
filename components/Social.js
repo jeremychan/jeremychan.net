@@ -1,8 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import faLinkedin from '@fortawesome/fontawesome-free-brands/faLinkedin'
-import faMedium from '@fortawesome/fontawesome-free-brands/faMediumM'
-import faGithub from '@fortawesome/fontawesome-free-brands/faGithub'
-import faStrava from '@fortawesome/fontawesome-free-brands/faStrava'
+import { faLinkedin, faMediumM, faGithub, faStrava } from '@fortawesome/free-brands-svg-icons'
 import PropTypes from 'prop-types';
 
 const Social = (props) => (

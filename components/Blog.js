@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import faMedium from '@fortawesome/fontawesome-free-brands/faMediumM'
+import { faMediumM } from '@fortawesome/free-brands-svg-icons'
 
 const axios = require("axios");
 
