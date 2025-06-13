@@ -20,16 +20,6 @@ class Main extends React.Component {
           {close}
         </article>
 
-        <article id="blog" className={`${this.props.article === 'blog' ? 'active' : ''} ${this.props.articleTimeout ? 'timeout' : ''}`} style={{ display: 'none' }}>
-          <Blog />
-          {close}
-        </article>
-
-        <article id="talks" className={`${this.props.article === 'talks' ? 'active' : ''} ${this.props.articleTimeout ? 'timeout' : ''}`} style={{ display: 'none' }}>
-          <Talks />
-          {close}
-        </article>
-
         <article id="contact" className={`${this.props.article === 'contact' ? 'active' : ''} ${this.props.articleTimeout ? 'timeout' : ''}`} style={{ display: 'none' }}>
           <Contact />
           {close}

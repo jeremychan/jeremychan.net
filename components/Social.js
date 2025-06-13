@@ -13,9 +13,6 @@ const Social = (props) => (
         <li><a href="https://github.com/jeremychan" target="_blank">
             <FontAwesomeIcon icon={faGithub} />
         </a></li>
-        <li><a href="https://medium.com/@jeremy-chan" target="_blank">
-            <FontAwesomeIcon icon={faMedium} />
-        </a></li>
         <li><a href="https://www.strava.com/athletes/79204665" target="_blank">
             <FontAwesomeIcon icon={faStrava} />
         </a></li>
