@@ -55,8 +55,7 @@ function Window({ id, title, position, active, depth, minimized, onFocus, onClos
 
 function About() {
   return <>
-    <p className="eyebrow">HELLO, I’M</p>
-    <h1>Jeremy<br /><span>Chan.</span></h1>
+    <div className="aboutHero"><div><p className="eyebrow">HELLO, I’M</p><h1>Jeremy<br /><span>Chan.</span></h1></div><img src="/avatar-transparent.png" alt="Illustrated portrait of Jeremy Chan" /></div>
     <p className="lead">Building AI platforms, developer infrastructure and reliable systems from London.</p>
     <p>I work across agentic systems, AI integrations, developer tooling, reliability and observability. I care about turning complex infrastructure into products that are fast, trustworthy and pleasant to build on.</p>
     <a className="projectLink" href="https://www.linkedin.com/in/jeremycwchan/" target="_blank" rel="noreferrer">Connect on LinkedIn <FontAwesomeIcon icon={faLinkedin} /></a>
@@ -79,9 +78,9 @@ function Models() {
     <h2>3D<span> Models.</span></h2>
     <p>I have a 3D printer (Bambu Lab P1S) at home and I design things that are useful, playful, or simply satisfying to make. I publish the models free on MakerWorld so anyone can download, customise and print them.</p>
     <div className="modelGallery">
-      <a href="https://makerworld.com/en/models/2736743-parametric-stackable-sliding-door-round-organizer" target="_blank" rel="noreferrer"><img src="https://makerworld.bblmw.com/makerworld/model/US31e9940bc1b14b/design/de74294d3faeac65.png" alt="Parametric stackable round organizer" /><span>Stackable organizer</span></a>
-      <a href="https://makerworld.com/en/models/2736740-customizable-spotify-photo-frame-instax-compatible" target="_blank" rel="noreferrer"><img src="https://makerworld.bblmw.com/makerworld/model/USd3ed37768e93c7/design/ae8e1e8287c89d45.png" alt="Customizable Spotify photo frame" /><span>Spotify photo frame</span></a>
-      <a href="https://makerworld.com/en/models/2802418-customizable-chain-coffee-cup-holder-hand-carrier" target="_blank" rel="noreferrer"><img src="https://makerworld.bblmw.com/makerworld/model/US31991614b1fde0/design/fa92f532d27d84ca.png" alt="Customizable chain coffee cup holder" /><span>Coffee cup carrier</span></a>
+      <a href="https://makerworld.com/en/models/2828605-montessori-sensory-multi-socket-plug-puzzle-toy" target="_blank" rel="noreferrer"><img src="https://makerworld.bblmw.com/makerworld/model/US1cd18c09846338/design/f7f68762fb4bc03b.png" alt="Montessori sensory multi socket plug puzzle toy" /><span>Montessori sensory puzzle</span></a>
+      <a href="https://makerworld.com/en/models/2802418-customizable-chain-coffee-cup-holder-hand-carrier" target="_blank" rel="noreferrer"><img src="https://makerworld.bblmw.com/makerworld/model/US31991614b1fde0/design/fa92f532d27d84ca.png" alt="Customizable chain coffee cup holder" /><span>Chain coffee cup holder</span></a>
+      <a href="https://makerworld.com/en/models/2682054-optical-illusion-spiral-wind-spinner" target="_blank" rel="noreferrer"><img src="https://makerworld.bblmw.com/makerworld/model/USf7d6d996510cb/design/2cfa87121ef35174.gif" alt="Optical illusion spiral wind spinner" /><span>Optical illusion spinner</span></a>
     </div>
     <a className="projectLink" href="https://makerworld.com/en/@RapidRender/upload" target="_blank" rel="noreferrer">Explore my models <FontAwesomeIcon icon={faArrowUpRightFromSquare} /></a>
   </>;
@@ -95,10 +94,17 @@ const formatTime = (seconds) => {
 };
 
 function PbSparkline({ values }) {
-  if (values.length < 2) return <div className="singlePb">ONE GLORIOUS DATA POINT</div>;
+  const [hovered, setHovered] = useState(null);
   const times = values.map(v => v.seconds), min = Math.min(...times), max = Math.max(...times);
-  const points = values.map((v, i) => `${6 + i * 88 / (values.length - 1)},${8 + (v.seconds - min) * 25 / Math.max(1, max - min)}`).join(" ");
-  return <svg className="sparkline" viewBox="0 0 100 42" preserveAspectRatio="none" aria-hidden="true"><polyline points={points} /><circle cx="94" cy="8" r="2.5" /></svg>;
+  const plotted = values.map((v, i) => ({ ...v, x: values.length === 1 ? 50 : 6 + i * 88 / (values.length - 1), y: values.length === 1 ? 21 : 8 + (max - v.seconds) * 25 / Math.max(1, max - min) }));
+  const points = plotted.map(v => `${v.x},${v.y}`).join(" ");
+  return <div className="sparkWrap">
+    <svg className="sparkline" viewBox="0 0 100 42" preserveAspectRatio="none" aria-label="Personal best progression">
+      {values.length > 1 && <polyline points={points} />}
+      {plotted.map((point, index) => <circle key={point.date} cx={point.x} cy={point.y} r={hovered === index ? 3.5 : 2.5} tabIndex="0" onMouseEnter={() => setHovered(index)} onMouseLeave={() => setHovered(null)} onFocus={() => setHovered(index)} onBlur={() => setHovered(null)} />)}
+    </svg>
+    {hovered !== null && <span className="sparkTooltip" style={{ left:`${plotted[hovered].x}%` }}>{new Date(`${plotted[hovered].date}T00:00:00`).toLocaleDateString("en-GB",{month:"short",year:"numeric"})} · {formatTime(plotted[hovered].seconds)}</span>}
+  </div>;
 }
 
 function Running() {
@@ -107,14 +113,12 @@ function Running() {
   return <>
     <p className="eyebrow">OFF THE CLOCK</p>
     <h2>Running<br /><span>log.</span></h2>
-    <p>Running started as a way to clear my head and became a long-running experiment in consistency, pacing and how many Sunday mornings I’m willing to surrender. Here’s what the data says so far.</p>
+    <p>I enjoy running and participating in races. Here’s what the data says so far.</p>
     <div className="runTotals"><div><strong>{runningStats.summary.km.toLocaleString()}<small> km</small></strong><span>TOTAL DISTANCE</span></div><div><strong>{runningStats.summary.runs}</strong><span>RUNS LOGGED</span></div><div><strong>{runningStats.summary.hours}<small> h</small></strong><span>ON MY FEET</span></div></div>
     <p className="chartTitle">PERSONAL BEST PROGRESSION</p>
     <div className="pbGrid">{distances.map(({key,label}) => { const values=runningStats.progress[key]; const pb=values[values.length-1]; return <div className="pbCard" key={key}><span>{label}</span><strong>{formatTime(pb.seconds)}</strong><small>{new Date(`${pb.date}T00:00:00`).toLocaleDateString("en-GB",{month:"short",year:"numeric"})}</small><PbSparkline values={values} /></div>; })}</div>
     <p className="chartTitle">KILOMETRES BY YEAR</p>
     <div className="yearChart">{runningStats.yearly.map(year => <div className="yearBar" key={year.year}><span>{Math.round(year.km)}</span><i style={{height:`${Math.max(5,year.km/maxYear*100)}%`}} /><small>{year.year}</small></div>)}</div>
-    <div className="funStats"><span><strong>{runningStats.summary.marathons}</strong> marathon distances in total</span><span><strong>{runningStats.summary.elevation.toLocaleString()}m</strong> climbed — nearly two Everests</span><span><strong>{runningStats.summary.favouriteDay}</strong> is apparently run day</span><span><strong>{runningStats.summary.averageKm}km</strong> per average outing</span></div>
-    <p className="dataNote">Calculated from {runningStats.summary.runs} Strava activities. PBs use rolling distance samples from the original FIT tracks.</p>
     <a className="projectLink" href="https://www.strava.com/athletes/79204665" target="_blank" rel="noreferrer">Follow on Strava <FontAwesomeIcon icon={faArrowUpRightFromSquare} /></a>
   </>;
 }
@@ -189,7 +193,6 @@ export default function Home() {
       </div>
 
       <div className="gridLines" aria-hidden="true" />
-      <div className="orbit" aria-hidden="true"><i /><i /><i /></div>
       {Object.entries(panels).map(([id, p]) => open[id] && positions[id] && <Window key={id} id={id} title={p.title} position={positions[id]} active={active === id} depth={Math.max(0, order.length - 1 - order.indexOf(id))} minimized={minimized[id]} onFocus={focus} onClose={close} onMinimize={(key) => setMinimized(v => ({ ...v, [key]: true }))} onMove={move}>{id === "about" ? <About /> : id === "book" ? <Book /> : id === "models" ? <Models /> : id === "running" ? <Running /> : <Contact />}</Window>)}
 
       <footer><span>© {new Date().getFullYear()} JEREMY CHAN</span><span>DESIGNED & BUILT WITH CARE <i /></span></footer>
