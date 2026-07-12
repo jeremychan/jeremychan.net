@@ -67,7 +67,7 @@ function Book() {
   return <>
     <p className="eyebrow">MY BOOK</p>
     <div className="bookIntro"><div><h2>The Prometheus<br /><span>Release.</span></h2><p className="projectRole">JEREMY CHAN · CELIA LIU</p></div><img src="https://prometheus.ceremydigital.com/assets/prometheus-cover.jpeg" alt="Cover of The Prometheus Release" /></div>
-    <p>I wanted to write the kind of technology fable I loved in <em>The Phoenix Project</em>: a story that makes difficult lessons about software organisations feel real rather than theoretical.</p>
+    <p>In 2026, I decided to fulfil a long-held goal: to write a book. <em>The Prometheus Release</em> is like <em>The Phoenix Project</em>, but for the AI era. Set in London, it is a technology fable that brings the difficult lessons of AI transformation to life.</p>
     <p>Set inside Fiscari’s race to rebuild a legacy tax product as an AI-native platform, the book asks what happens when AI makes a company faster than its judgement. It is about speed, hidden errors, accountability, and building systems people can actually trust.</p>
     <a className="projectLink" href="https://prometheus.ceremydigital.com/" target="_blank" rel="noreferrer">Visit the book <FontAwesomeIcon icon={faArrowUpRightFromSquare} /></a>
   </>;
@@ -77,7 +77,7 @@ function Models() {
   return <>
     <p className="eyebrow">MADE IN THREE DIMENSIONS</p>
     <h2>3D<span> Models.</span></h2>
-    <p>I have a 3D printer (Bambu Lab P1S) at home and I design things that are useful, playful, or simply satisfying to make. I publish the models free on MakerWorld so anyone can download, customise and print them.</p>
+    <p>I have a 3D printer (Bambu Lab P1S) at home and I design things that are useful, playful, or simply satisfying to make. I publish the models free on MakerWorld. I mostly model in OpenSCAD.</p>
     <div className="modelGallery">
       <a href="https://makerworld.com/en/models/2828605-montessori-sensory-multi-socket-plug-puzzle-toy" target="_blank" rel="noreferrer"><img src="https://makerworld.bblmw.com/makerworld/model/US1cd18c09846338/design/f7f68762fb4bc03b.png" alt="Montessori sensory multi socket plug puzzle toy" /><span>Montessori sensory puzzle</span></a>
       <a href="https://makerworld.com/en/models/2802418-customizable-chain-coffee-cup-holder-hand-carrier" target="_blank" rel="noreferrer"><img src="https://makerworld.bblmw.com/makerworld/model/US31991614b1fde0/design/fa92f532d27d84ca.png" alt="Customizable chain coffee cup holder" /><span>Chain coffee cup holder</span></a>
@@ -113,8 +113,8 @@ function Running() {
   const maxYear = Math.max(...runningStats.yearly.map(y => y.km));
   return <>
     <p className="eyebrow">OFF THE CLOCK</p>
-    <h2>Running<br /><span>log.</span></h2>
-    <p>I enjoy running and participating in races. Here’s what the data says so far.</p>
+    <h2>Running<br /><span>Career.</span></h2>
+    <p>I enjoy running and participating in races. Here’s what the data says so far. I finally got a place in the London Marathon in 2027 so I'll practise hard for it.</p>
     <div className="runTotals"><div><strong>{runningStats.summary.km.toLocaleString()}<small> km</small></strong><span>TOTAL DISTANCE</span></div><div><strong>{runningStats.summary.runs}</strong><span>RUNS LOGGED</span></div><div><strong>{runningStats.summary.hours}<small> h</small></strong><span>ON MY FEET</span></div></div>
     <p className="chartTitle">PERSONAL BEST PROGRESSION</p>
     <div className="pbGrid">{distances.map(({key,label}) => { const values=runningStats.progress[key]; const pb=values[values.length-1]; return <div className="pbCard" key={key}><span>{label}</span><strong>{formatTime(pb.seconds)}</strong><small>{new Date(`${pb.date}T00:00:00`).toLocaleDateString("en-GB",{month:"short",year:"numeric"})}</small><PbSparkline values={values} /></div>; })}</div>
@@ -127,7 +127,7 @@ function Running() {
 function Contact() {
   return <>
     <p className="eyebrow">SAY HELLO</p>
-    <h2>Let’s build something<br /><span>useful.</span></h2>
+    <h2>Let’s <span>Connect.</span></h2>
     <ContactForm />
   </>;
 }
