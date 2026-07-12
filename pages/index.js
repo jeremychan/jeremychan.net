@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { useEffect, useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGithub, faLinkedin, faStrava } from "@fortawesome/free-brands-svg-icons";
+import { faGithub, faLinkedin } from "@fortawesome/free-brands-svg-icons";
 import { faArrowUpRightFromSquare, faMoon, faSun, faXmark } from "@fortawesome/free-solid-svg-icons";
 import ContactForm from "../components/ContactForm";
 import runningStats from "../data/runningStats.json";
@@ -195,7 +195,7 @@ export default function Home() {
     <main className={`desktop ${dark ? "dark" : ""}`}>
       <nav className="topbar">
         <button className="brand" onClick={() => launch("about")}><span>JC</span><b>JEREMY CHAN</b></button>
-        <div className="topRight"><span>LONDON, UK</span><div className="topSocial"><a href="https://www.linkedin.com/in/jeremycwchan/" target="_blank" rel="noreferrer" aria-label="LinkedIn"><FontAwesomeIcon icon={faLinkedin} /></a><a href="https://github.com/jeremychan" target="_blank" rel="noreferrer" aria-label="GitHub"><FontAwesomeIcon icon={faGithub} /></a><a href="https://www.strava.com/athletes/79204665" target="_blank" rel="noreferrer" aria-label="Strava"><FontAwesomeIcon icon={faStrava} /></a></div><button onClick={() => setDark(v => !v)} aria-label="Toggle colour theme"><FontAwesomeIcon icon={dark ? faSun : faMoon} /></button></div>
+        <div className="topRight"><span>LONDON, UK</span><div className="topSocial"><a href="https://www.linkedin.com/in/jeremycwchan/" target="_blank" rel="noreferrer" aria-label="LinkedIn"><FontAwesomeIcon icon={faLinkedin} /></a><a href="https://github.com/jeremychan" target="_blank" rel="noreferrer" aria-label="GitHub"><FontAwesomeIcon icon={faGithub} /></a></div><button onClick={() => setDark(v => !v)} aria-label="Toggle colour theme"><FontAwesomeIcon icon={dark ? faSun : faMoon} /></button></div>
       </nav>
 
       <div className="launchers" aria-label="Open windows">
