@@ -2,7 +2,7 @@ import Head from "next/head";
 import { useEffect, useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGithub, faLinkedin, faStrava } from "@fortawesome/free-brands-svg-icons";
-import { faArrowUpRightFromSquare, faMoon, faSun, faVolumeHigh, faVolumeXmark, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { faArrowUpRightFromSquare, faMoon, faSun, faXmark } from "@fortawesome/free-solid-svg-icons";
 import ContactForm from "../components/ContactForm";
 import runningStats from "../data/runningStats.json";
 
@@ -14,7 +14,7 @@ const panels = {
   contact: { title: "contact.msg", x: 60, y: 57, className: "contactWindow" },
 };
 
-function Window({ id, title, position, active, depth, onFocus, onClose, onMove, children }) {
+function Window({ id, title, position, active, depth, open, onFocus, onClose, onMove, children }) {
   const drag = useRef(null);
 
   const pointerDown = (event) => {
@@ -35,10 +35,12 @@ function Window({ id, title, position, active, depth, onFocus, onClose, onMove, 
 
   return (
     <section
-      className={`deskWindow ${panels[id].className} ${active ? "isActive" : ""}`}
+      id={id}
+      className={`deskWindow ${panels[id].className} ${active ? "isActive" : ""} ${open ? "" : "isClosed"}`}
       style={{ left: position.x, top: position.y, zIndex: active ? 20 : 10, "--sheet-depth": depth }}
       onPointerDown={() => onFocus(id)}
       aria-label={title}
+      aria-hidden={!open}
     >
       <header className="windowBar" onPointerDown={pointerDown} onPointerMove={pointerMove} onPointerUp={pointerUp}>
         <span className="windowMark" aria-hidden="true" />
@@ -134,10 +136,8 @@ export default function Home() {
   const [open, setOpen] = useState({ about: true, book: false, models: false, running: false, contact: false });
   const [active, setActive] = useState("about");
   const [dark, setDark] = useState(false);
-  const [sound, setSound] = useState(true);
   const [positions, setPositions] = useState({});
   const [order, setOrder] = useState(["about"]);
-  const audioContext = useRef(null);
 
   useEffect(() => {
     const place = () => setPositions(Object.fromEntries(Object.entries(panels).map(([id, p]) => [id, { x: window.innerWidth * p.x / 100, y: window.innerHeight * p.y / 100 }])));
@@ -146,28 +146,12 @@ export default function Home() {
     return () => window.removeEventListener("resize", place);
   }, []);
 
-  useEffect(() => {
-    const click = (event) => {
-      if (!sound || !event.target.closest("button, a")) return;
-      const AudioCtx = window.AudioContext || window.webkitAudioContext;
-      if (!AudioCtx) return;
-      const context = audioContext.current || (audioContext.current = new AudioCtx());
-      const oscillator = context.createOscillator();
-      const gain = context.createGain();
-      oscillator.type = "sine";
-      oscillator.frequency.setValueAtTime(520, context.currentTime);
-      oscillator.frequency.exponentialRampToValueAtTime(310, context.currentTime + .035);
-      gain.gain.setValueAtTime(.035, context.currentTime);
-      gain.gain.exponentialRampToValueAtTime(.001, context.currentTime + .045);
-      oscillator.connect(gain).connect(context.destination);
-      oscillator.start(); oscillator.stop(context.currentTime + .05);
-    };
-    document.addEventListener("click", click);
-    return () => document.removeEventListener("click", click);
-  }, [sound]);
-
   const focus = (id) => { setActive(id); setOrder(v => [...v.filter(key => key !== id), id]); };
-  const launch = (id) => { setOpen(v => ({ ...v, [id]: true })); focus(id); };
+  const launch = (id, updateHash = true) => {
+    setOpen(v => ({ ...v, [id]: true }));
+    focus(id);
+    if (updateHash) window.history.replaceState(null, "", `#${id}`);
+  };
   const close = (id) => {
     setOpen(v => ({ ...v, [id]: false }));
     setOrder(v => {
@@ -178,12 +162,40 @@ export default function Home() {
   };
   const move = (id, x, y) => setPositions(v => ({ ...v, [id]: { x: Math.max(8, Math.min(x, window.innerWidth - 260)), y: Math.max(62, Math.min(y, window.innerHeight - 80)) } }));
 
+  useEffect(() => {
+    const id = window.location.hash.slice(1);
+    if (panels[id]) launch(id, false);
+  }, []);
+
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@graph": [
+      { "@type": "Person", "@id": "https://jeremychan.net/#person", name: "Jeremy Chan", url: "https://jeremychan.net/", image: "https://jeremychan.net/avatar-transparent.png", homeLocation: { "@type": "Place", name: "London, UK" }, knowsAbout: ["AI platforms", "AI integration", "Developer infrastructure", "Reliable systems", "Developer tooling", "Observability"], sameAs: ["https://www.linkedin.com/in/jeremycwchan/", "https://github.com/jeremychan", "https://www.strava.com/athletes/79204665", "https://makerworld.com/en/@RapidRender"] },
+      { "@type": "Book", name: "The Prometheus Release", url: "https://prometheus.ceremydigital.com/", image: "https://prometheus.ceremydigital.com/assets/prometheus-cover.jpeg", description: "A tech fable about AI transformation, software leadership, and building systems people can trust.", author: [{ "@id": "https://jeremychan.net/#person" }, { "@type": "Person", name: "Celia Liu" }] }
+    ]
+  };
+
   return <>
-    <Head><title>Jeremy Chan — Software Engineer</title><meta name="description" content="Jeremy Chan is a full-stack software engineer in London, specialising in AI, backend development and DevOps." /><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" /></Head>
+    <Head>
+      <title>Jeremy Chan — AI Platforms & Developer Infrastructure</title>
+      <meta name="description" content="Jeremy Chan builds AI platforms, developer infrastructure and reliable systems from London. Explore his book, 3D models and running data." />
+      <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+      <link rel="canonical" href="https://jeremychan.net/" />
+      <meta property="og:type" content="website" />
+      <meta property="og:title" content="Jeremy Chan — AI Platforms & Developer Infrastructure" />
+      <meta property="og:description" content="Building AI platforms, developer infrastructure and reliable systems from London." />
+      <meta property="og:url" content="https://jeremychan.net/" />
+      <meta property="og:image" content="https://jeremychan.net/avatar.webp" />
+      <meta name="twitter:card" content="summary" />
+      <meta name="twitter:title" content="Jeremy Chan — AI Platforms & Developer Infrastructure" />
+      <meta name="twitter:description" content="Building AI platforms, developer infrastructure and reliable systems from London." />
+      <meta name="twitter:image" content="https://jeremychan.net/avatar.webp" />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
+    </Head>
     <main className={`desktop ${dark ? "dark" : ""}`}>
       <nav className="topbar">
         <button className="brand" onClick={() => launch("about")}><span>JC</span><b>JEREMY CHAN</b></button>
-        <div className="topRight"><span>51.5072° N, 0.1276° W</span><div className="topSocial"><a href="https://www.linkedin.com/in/jeremycwchan/" target="_blank" rel="noreferrer" aria-label="LinkedIn"><FontAwesomeIcon icon={faLinkedin} /></a><a href="https://github.com/jeremychan" target="_blank" rel="noreferrer" aria-label="GitHub"><FontAwesomeIcon icon={faGithub} /></a><a href="https://www.strava.com/athletes/79204665" target="_blank" rel="noreferrer" aria-label="Strava"><FontAwesomeIcon icon={faStrava} /></a></div><button onClick={() => setSound(v => !v)} aria-label="Toggle interface sounds"><FontAwesomeIcon icon={sound ? faVolumeHigh : faVolumeXmark} /></button><button onClick={() => setDark(v => !v)} aria-label="Toggle colour theme"><FontAwesomeIcon icon={dark ? faSun : faMoon} /></button></div>
+        <div className="topRight"><span>LONDON, UK</span><div className="topSocial"><a href="https://www.linkedin.com/in/jeremycwchan/" target="_blank" rel="noreferrer" aria-label="LinkedIn"><FontAwesomeIcon icon={faLinkedin} /></a><a href="https://github.com/jeremychan" target="_blank" rel="noreferrer" aria-label="GitHub"><FontAwesomeIcon icon={faGithub} /></a><a href="https://www.strava.com/athletes/79204665" target="_blank" rel="noreferrer" aria-label="Strava"><FontAwesomeIcon icon={faStrava} /></a></div><button onClick={() => setDark(v => !v)} aria-label="Toggle colour theme"><FontAwesomeIcon icon={dark ? faSun : faMoon} /></button></div>
       </nav>
 
       <div className="launchers" aria-label="Open windows">
@@ -191,9 +203,9 @@ export default function Home() {
       </div>
 
       <div className="gridLines" aria-hidden="true" />
-      {Object.entries(panels).map(([id, p]) => open[id] && positions[id] && <Window key={id} id={id} title={p.title} position={positions[id]} active={active === id} depth={Math.max(0, order.length - 1 - order.indexOf(id))} onFocus={focus} onClose={close} onMove={move}>{id === "about" ? <About /> : id === "book" ? <Book /> : id === "models" ? <Models /> : id === "running" ? <Running /> : <Contact />}</Window>)}
+      {Object.entries(panels).map(([id, p]) => <Window key={id} id={id} title={p.title} position={positions[id] || { x: `${p.x}%`, y: `${p.y}%` }} active={active === id} depth={Math.max(0, order.length - 1 - order.indexOf(id))} open={open[id]} onFocus={focus} onClose={close} onMove={move}>{id === "about" ? <About /> : id === "book" ? <Book /> : id === "models" ? <Models /> : id === "running" ? <Running /> : <Contact />}</Window>)}
 
-      <footer><span>© {new Date().getFullYear()} JEREMY CHAN</span><span>DESIGNED & BUILT WITH CARE <i /></span></footer>
+      <footer><span>© {new Date().getFullYear()} JEREMY CHAN</span><span>HOSTED ON VERCEL <i /></span></footer>
     </main>
   </>;
 }
