@@ -1,0 +1,10 @@
+{
+  "summary": {"km": 2845.6, "runs": 356, "hours": 275.1, "elevation": 15236, "averageKm": 8.0, "marathons": 67.4, "favouriteDay": "Wednesday", "favouriteMonth": "March"},
+  "yearly": [{"year": 2021, "km": 98.8, "runs": 18}, {"year": 2023, "km": 82.7, "runs": 12}, {"year": 2024, "km": 1056.2, "runs": 116}, {"year": 2025, "km": 1036.2, "runs": 128}, {"year": 2026, "km": 571.7, "runs": 82}],
+  "progress": {
+    "5000": [{"date":"2021-02-24","seconds":1587},{"date":"2021-03-21","seconds":1530},{"date":"2021-05-22","seconds":1445},{"date":"2024-03-30","seconds":1395},{"date":"2024-05-22","seconds":1323},{"date":"2024-09-22","seconds":1297},{"date":"2024-12-01","seconds":1277},{"date":"2025-04-26","seconds":1274}],
+    "10000": [{"date":"2021-06-03","seconds":3181},{"date":"2024-01-24","seconds":2974},{"date":"2024-05-22","seconds":2684},{"date":"2024-09-22","seconds":2622},{"date":"2024-12-01","seconds":2607}],
+    "21097": [{"date":"2024-02-25","seconds":6843},{"date":"2024-10-13","seconds":6113}],
+    "42195": [{"date":"2025-05-11","seconds":15733}]
+  }
+}
