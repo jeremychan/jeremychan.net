@@ -57,17 +57,16 @@ function About() {
   return <>
     <p className="eyebrow">HELLO, I’M</p>
     <h1>Jeremy<br /><span>Chan.</span></h1>
-    <p className="lead">Tech lead at Meta building AI platforms and reliable systems from London.</p>
-    <div className="status"><i /> AVAILABLE FOR INTERESTING PROBLEMS</div>
-    <p>I lead ambiguous, cross-functional work across agentic browser systems, developer tooling, reliability and observability. I care about turning complex infrastructure into products that are fast, trustworthy and pleasant to build on.</p>
-    <div className="chips"><span>AI systems</span><span>Tech leadership</span><span>Reliability</span><span>Developer tools</span></div>
+    <p className="lead">Building AI platforms, developer infrastructure and reliable systems from London.</p>
+    <p>I work across agentic systems, AI integrations, developer tooling, reliability and observability. I care about turning complex infrastructure into products that are fast, trustworthy and pleasant to build on.</p>
+    <a className="projectLink" href="https://www.linkedin.com/in/jeremycwchan/" target="_blank" rel="noreferrer">Connect on LinkedIn <FontAwesomeIcon icon={faLinkedin} /></a>
   </>;
 }
 
 function Book() {
   return <>
-    <p className="eyebrow">SELECTED WRITING</p>
-    <div className="bookIntro"><div><h2>The Prometheus<br /><span>Release.</span></h2><p className="projectRole">CO-AUTHOR · CELIA LIU</p></div><img src="https://prometheus.ceremydigital.com/assets/prometheus-cover.jpeg" alt="Cover of The Prometheus Release" /></div>
+    <p className="eyebrow">MY BOOK</p>
+    <div className="bookIntro"><div><h2>The Prometheus<br /><span>Release.</span></h2><p className="projectRole">JEREMY CHAN · CELIA LIU</p></div><img src="https://prometheus.ceremydigital.com/assets/prometheus-cover.jpeg" alt="Cover of The Prometheus Release" /></div>
     <p>I wanted to write the kind of technology fable I loved in <em>The Phoenix Project</em>: a story that makes difficult lessons about software organisations feel real rather than theoretical.</p>
     <p>Set inside Fiscari’s race to rebuild a legacy tax product as an AI-native platform, the book asks what happens when AI makes a company faster than its judgement. It is about speed, hidden errors, accountability, and building systems people can actually trust.</p>
     <a className="projectLink" href="https://prometheus.ceremydigital.com/" target="_blank" rel="noreferrer">Visit the book <FontAwesomeIcon icon={faArrowUpRightFromSquare} /></a>
@@ -77,9 +76,8 @@ function Book() {
 function Models() {
   return <>
     <p className="eyebrow">MADE IN THREE DIMENSIONS</p>
-    <h2>Rapid<span>Render.</span></h2>
-    <p className="projectRole">3D DESIGN · MAKERWORLD</p>
-    <p>I have a 3D printer at home and design things that are useful, playful, or simply satisfying to make. I publish the models free on MakerWorld so anyone can download, customise and print them.</p>
+    <h2>3D<span> Models.</span></h2>
+    <p>I have a 3D printer (Bambu Lab P1S) at home and I design things that are useful, playful, or simply satisfying to make. I publish the models free on MakerWorld so anyone can download, customise and print them.</p>
     <div className="modelGallery">
       <a href="https://makerworld.com/en/models/2736743-parametric-stackable-sliding-door-round-organizer" target="_blank" rel="noreferrer"><img src="https://makerworld.bblmw.com/makerworld/model/US31e9940bc1b14b/design/de74294d3faeac65.png" alt="Parametric stackable round organizer" /><span>Stackable organizer</span></a>
       <a href="https://makerworld.com/en/models/2736740-customizable-spotify-photo-frame-instax-compatible" target="_blank" rel="noreferrer"><img src="https://makerworld.bblmw.com/makerworld/model/USd3ed37768e93c7/design/ae8e1e8287c89d45.png" alt="Customizable Spotify photo frame" /><span>Spotify photo frame</span></a>
