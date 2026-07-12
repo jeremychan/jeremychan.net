@@ -2,7 +2,7 @@ import Head from "next/head";
 import { useEffect, useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGithub, faLinkedin, faStrava } from "@fortawesome/free-brands-svg-icons";
-import { faArrowUpRightFromSquare, faMinus, faMoon, faSun, faVolumeHigh, faVolumeXmark, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { faArrowUpRightFromSquare, faMoon, faSun, faVolumeHigh, faVolumeXmark, faXmark } from "@fortawesome/free-solid-svg-icons";
 import ContactForm from "../components/ContactForm";
 import runningStats from "../data/runningStats.json";
 
@@ -14,7 +14,7 @@ const panels = {
   contact: { title: "contact.msg", x: 60, y: 57, className: "contactWindow" },
 };
 
-function Window({ id, title, position, active, depth, minimized, onFocus, onClose, onMinimize, onMove, children }) {
+function Window({ id, title, position, active, depth, onFocus, onClose, onMove, children }) {
   const drag = useRef(null);
 
   const pointerDown = (event) => {
@@ -35,7 +35,7 @@ function Window({ id, title, position, active, depth, minimized, onFocus, onClos
 
   return (
     <section
-      className={`deskWindow ${panels[id].className} ${active ? "isActive" : ""} ${minimized ? "isMinimized" : ""}`}
+      className={`deskWindow ${panels[id].className} ${active ? "isActive" : ""}`}
       style={{ left: position.x, top: position.y, zIndex: active ? 20 : 10, "--sheet-depth": depth }}
       onPointerDown={() => onFocus(id)}
       aria-label={title}
@@ -44,7 +44,6 @@ function Window({ id, title, position, active, depth, minimized, onFocus, onClos
         <span className="windowMark" aria-hidden="true" />
         <span>{title}</span>
         <div className="windowActions">
-          <button onClick={() => onMinimize(id)} aria-label={`Minimize ${title}`}><FontAwesomeIcon icon={faMinus} /></button>
           <button onClick={() => onClose(id)} aria-label={`Close ${title}`}><FontAwesomeIcon icon={faXmark} /></button>
         </div>
       </header>
@@ -133,7 +132,6 @@ function Contact() {
 
 export default function Home() {
   const [open, setOpen] = useState({ about: true, book: false, models: false, running: false, contact: false });
-  const [minimized, setMinimized] = useState({});
   const [active, setActive] = useState("about");
   const [dark, setDark] = useState(false);
   const [sound, setSound] = useState(true);
@@ -169,7 +167,7 @@ export default function Home() {
   }, [sound]);
 
   const focus = (id) => { setActive(id); setOrder(v => [...v.filter(key => key !== id), id]); };
-  const launch = (id) => { setOpen(v => ({ ...v, [id]: true })); setMinimized(v => ({ ...v, [id]: false })); focus(id); };
+  const launch = (id) => { setOpen(v => ({ ...v, [id]: true })); focus(id); };
   const close = (id) => {
     setOpen(v => ({ ...v, [id]: false }));
     setOrder(v => {
@@ -189,11 +187,11 @@ export default function Home() {
       </nav>
 
       <div className="launchers" aria-label="Open windows">
-        {Object.entries(panels).map(([id, p], index) => <button key={id} onClick={() => launch(id)} className={open[id] && !minimized[id] && active === id ? "selected" : ""}><span>{String(index + 1).padStart(2, "0")}</span>{p.title}</button>)}
+        {Object.entries(panels).map(([id, p], index) => <button key={id} onClick={() => launch(id)} className={open[id] && active === id ? "selected" : ""}><span>{String(index + 1).padStart(2, "0")}</span>{p.title}</button>)}
       </div>
 
       <div className="gridLines" aria-hidden="true" />
-      {Object.entries(panels).map(([id, p]) => open[id] && positions[id] && <Window key={id} id={id} title={p.title} position={positions[id]} active={active === id} depth={Math.max(0, order.length - 1 - order.indexOf(id))} minimized={minimized[id]} onFocus={focus} onClose={close} onMinimize={(key) => setMinimized(v => ({ ...v, [key]: true }))} onMove={move}>{id === "about" ? <About /> : id === "book" ? <Book /> : id === "models" ? <Models /> : id === "running" ? <Running /> : <Contact />}</Window>)}
+      {Object.entries(panels).map(([id, p]) => open[id] && positions[id] && <Window key={id} id={id} title={p.title} position={positions[id]} active={active === id} depth={Math.max(0, order.length - 1 - order.indexOf(id))} onFocus={focus} onClose={close} onMove={move}>{id === "about" ? <About /> : id === "book" ? <Book /> : id === "models" ? <Models /> : id === "running" ? <Running /> : <Contact />}</Window>)}
 
       <footer><span>© {new Date().getFullYear()} JEREMY CHAN</span><span>DESIGNED & BUILT WITH CARE <i /></span></footer>
     </main>

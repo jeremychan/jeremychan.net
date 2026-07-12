@@ -25,7 +25,6 @@ button { color:inherit; }
 .launchers span { display:inline-grid; place-items:center; width:27px; height:27px; margin-right:9px; border:1px solid var(--line); color:var(--accent); }
 .deskWindow { position:absolute; width:min(480px,calc(100vw - 32px)); border:1px solid var(--ink); background:var(--panel); box-shadow:5px 5px 0 color-mix(in srgb,var(--ink) 15%,transparent); transition:box-shadow .2s,opacity .2s,transform .2s,bottom .3s cubic-bezier(.2,.8,.2,1); animation:windowIn .42s cubic-bezier(.16,1,.3,1) both; }
 .deskWindow.isActive { box-shadow:7px 7px 0 color-mix(in srgb,var(--accent) 55%,transparent); }
-.deskWindow.isMinimized { opacity:0; transform:translateY(12px) scale(.97); pointer-events:none; }
 .aboutWindow { width:min(515px,calc(100vw - 32px)); }
 .bookWindow { width:min(475px,calc(100vw - 32px)); }.modelsWindow { width:min(520px,calc(100vw - 32px)); }.runningWindow { width:min(650px,calc(100vw - 32px)); }
 .contactWindow { width:min(420px,calc(100vw - 32px)); }
@@ -114,7 +113,6 @@ footer span:last-child { display:flex; align-items:center; gap:9px; }
   .deskWindow,.aboutWindow,.bookWindow,.modelsWindow,.runningWindow,.contactWindow { position:fixed; left:0 !important; right:0; top:auto !important; bottom:94px; width:100%; height:calc(100svh - 153px); max-height:none; border-left:0; border-right:0; border-bottom:0; box-shadow:none; border-radius:17px 17px 0 0; transform:translateY(0); }
   .deskWindow:not(.isActive) { display:none; }
   .deskWindow.isActive { box-shadow:0 -8px 24px rgba(0,0,0,.12); }
-  .deskWindow.isMinimized { opacity:0; transform:translateY(100%); }
   .windowBar { height:42px; border-radius:16px 16px 0 0; cursor:default; }
   .windowBar::before { content:""; position:absolute; left:50%; top:6px; width:34px; height:3px; transform:translateX(-50%); background:color-mix(in srgb,var(--paper) 40%,transparent); border-radius:5px; }
   .windowBody { padding:24px 22px 28px; height:calc(100% - 42px); max-height:none; overflow-y:auto; overscroll-behavior:contain; }
