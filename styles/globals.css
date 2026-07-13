@@ -125,7 +125,6 @@ footer span:last-child { display:flex; align-items:center; gap:9px; }
   .deskWindow:not(.isActive) { display:none; }
   .deskWindow.isActive { box-shadow:0 -8px 24px rgba(0,0,0,.12); }
   .windowBar { height:42px; border-radius:16px 16px 0 0; cursor:default; }
-  .windowBar::before { content:""; position:absolute; left:50%; top:6px; width:34px; height:3px; transform:translateX(-50%); background:color-mix(in srgb,var(--paper) 40%,transparent); border-radius:5px; }
   .windowBody { padding:24px 22px 28px; height:calc(100% - 42px); max-height:none; overflow-y:auto; overscroll-behavior:contain; }
   .bookIntro { grid-template-columns:1fr 92px; }.bookIntro img { width:92px; }
   .pbGrid { grid-template-columns:1fr 1fr; }
