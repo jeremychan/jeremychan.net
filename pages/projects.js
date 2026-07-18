@@ -76,7 +76,6 @@ export default function Projects() {
       </div>
 
       <footer>
-        <span>© {new Date().getFullYear()} JEREMY CHAN</span>
         <span>HOBBY PROJECTS <i /></span>
       </footer>
     </main>

@@ -226,7 +226,6 @@ export default function Home() {
       <div className="gridLines" aria-hidden="true" />
       {Object.entries(panels).map(([id, p]) => <Window key={id} id={id} title={p.title} position={positions[id] || { x: `${p.x}%`, y: `${p.y}%` }} active={active === id} depth={Math.max(0, order.length - 1 - order.indexOf(id))} open={open[id]} onFocus={focus} onClose={close} onMove={move}>{id === "about" ? <About /> : id === "book" ? <Book /> : id === "models" ? <Models /> : id === "running" ? <Running /> : id === "projects" ? <Projects /> : <Contact />}</Window>)}
 
-      <footer><span>© {new Date().getFullYear()} JEREMY CHAN</span><span>HOSTED ON VERCEL <i /></span></footer>
     </main>
   </>;
 }
