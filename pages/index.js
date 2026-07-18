@@ -195,7 +195,7 @@ export default function Home() {
     <main className={`desktop ${dark ? "dark" : ""}`}>
       <nav className="topbar">
         <button className="brand" onClick={() => launch("about")}><span>JC</span><b>JEREMY CHAN</b></button>
-        <div className="topRight"><span>LONDON, UK</span><div className="topSocial"><a href="https://www.linkedin.com/in/jeremycwchan/" target="_blank" rel="noreferrer" aria-label="LinkedIn"><FontAwesomeIcon icon={faLinkedin} /></a><a href="https://github.com/jeremychan" target="_blank" rel="noreferrer" aria-label="GitHub"><FontAwesomeIcon icon={faGithub} /></a></div><button onClick={() => setDark(v => !v)} aria-label="Toggle colour theme"><FontAwesomeIcon icon={dark ? faSun : faMoon} /></button></div>
+        <div className="topRight"><a className="topNavLink" href="/projects">PROJECTS</a><span>LONDON, UK</span><div className="topSocial"><a href="https://www.linkedin.com/in/jeremycwchan/" target="_blank" rel="noreferrer" aria-label="LinkedIn"><FontAwesomeIcon icon={faLinkedin} /></a><a href="https://github.com/jeremychan" target="_blank" rel="noreferrer" aria-label="GitHub"><FontAwesomeIcon icon={faGithub} /></a></div><button onClick={() => setDark(v => !v)} aria-label="Toggle colour theme"><FontAwesomeIcon icon={dark ? faSun : faMoon} /></button></div>
       </nav>
 
       <div className="launchers" aria-label="Open windows">
