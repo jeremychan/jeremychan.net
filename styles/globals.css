@@ -31,7 +31,7 @@ button { color:inherit; }
 .deskWindow.isActive { box-shadow:7px 7px 0 color-mix(in srgb,var(--accent) 55%,transparent); }
 .deskWindow.isClosed { display:none; }
 .aboutWindow { width:min(515px,calc(100vw - 32px)); }
-.bookWindow { width:min(475px,calc(100vw - 32px)); }.modelsWindow { width:min(520px,calc(100vw - 32px)); }.runningWindow { width:min(650px,calc(100vw - 32px)); }
+.bookWindow { width:min(475px,calc(100vw - 32px)); }.modelsWindow { width:min(520px,calc(100vw - 32px)); }.runningWindow { width:min(650px,calc(100vw - 32px)); }.projectsWindow { width:min(520px,calc(100vw - 32px)); }
 .contactWindow { width:min(420px,calc(100vw - 32px)); }
 .windowBar { height:39px; display:flex; align-items:center; gap:10px; padding:0 8px 0 12px; border-bottom:1px solid var(--ink); background:var(--ink); color:var(--paper); font:500 11px DM Mono,monospace; letter-spacing:.08em; cursor:grab; user-select:none; touch-action:none; }
 .windowBar:active { cursor:grabbing; }
@@ -135,11 +135,11 @@ footer span:last-child { display:flex; align-items:center; gap:9px; }
   .topRight>span { display:none; }
   .topSocial { gap:1px; }
   .topSocial a { width:25px; height:25px; font-size:12px; }
-  .gridLines { inset:59px 0 94px; }
-  .launchers { top:auto; bottom:36px; left:0; right:0; height:58px; padding:8px 6px; flex-direction:row; background:var(--paper); border-top:1px solid var(--line); gap:2px; }
-  .launchers button { flex:1; min-width:0; width:auto; text-align:center; padding:4px 1px; font-size:10px; }
+  .gridLines { inset:59px 0 144px; }
+  .launchers { top:auto; bottom:36px; left:0; right:0; height:108px; padding:8px 6px; display:grid; grid-template-columns:repeat(3,1fr); grid-template-rows:repeat(2,1fr); background:var(--paper); border-top:1px solid var(--line); gap:2px; }
+  .launchers button { min-width:0; width:auto; text-align:center; padding:4px 1px; font-size:10px; }
   .launchers span { display:none; }
-  .deskWindow,.aboutWindow,.bookWindow,.modelsWindow,.runningWindow,.contactWindow { position:fixed; left:0 !important; right:0; top:auto !important; bottom:94px; width:100%; height:calc(100svh - 153px); max-height:none; border-left:0; border-right:0; border-bottom:0; box-shadow:none; border-radius:17px 17px 0 0; transform:translateY(0); }
+  .deskWindow,.aboutWindow,.bookWindow,.modelsWindow,.runningWindow,.projectsWindow,.contactWindow { position:fixed; left:0 !important; right:0; top:auto !important; bottom:144px; width:100%; height:calc(100svh - 203px); max-height:none; border-left:0; border-right:0; border-bottom:0; box-shadow:none; border-radius:17px 17px 0 0; transform:translateY(0); }
   .deskWindow:not(.isActive) { display:none; }
   .deskWindow.isActive { box-shadow:0 -8px 24px rgba(0,0,0,.12); }
   .windowBar { height:42px; border-radius:16px 16px 0 0; cursor:default; }

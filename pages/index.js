@@ -9,6 +9,7 @@ import runningStats from "../data/runningStats.json";
 const panels = {
   about: { title: "about.txt", x: 7, y: 15, className: "aboutWindow" },
   book: { title: "book.epub", x: 51, y: 10, className: "bookWindow" },
+  projects: { title: "projects.py", x: 19, y: 30, className: "projectsWindow" },
   models: { title: "models.stl", x: 42, y: 52, className: "modelsWindow" },
   running: { title: "running.exe", x: 66, y: 35, className: "runningWindow" },
   contact: { title: "contact.msg", x: 60, y: 57, className: "contactWindow" },
@@ -132,8 +133,28 @@ function Contact() {
   </>;
 }
 
+function Projects() {
+  return <>
+    <p className="eyebrow">HOBBY PROJECTS</p>
+    <h2>Hobby<br /><span>Projects.</span></h2>
+    <p>I build small things in my spare time.</p>
+    <div className="projectWindowList">
+      <a className="workItem" href="https://github.com/jeremychan/ha-agent-cli" target="_blank" rel="noreferrer">
+        <span className="workIndex">01</span>
+        <div><strong>HA Agent CLI</strong><small>A command-line tool for Home Assistant.</small></div>
+        <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
+      </a>
+      <a className="workItem" href="https://github.com/jeremychan/home-assistant-addons-gemini-cli" target="_blank" rel="noreferrer">
+        <span className="workIndex">02</span>
+        <div><strong>Gemini CLI Add-on</strong><small>A Home Assistant add-on for using Gemini CLI.</small></div>
+        <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
+      </a>
+    </div>
+  </>;
+}
+
 export default function Home() {
-  const [open, setOpen] = useState({ about: true, book: false, models: false, running: false, contact: false });
+  const [open, setOpen] = useState({ about: true, book: false, models: false, running: false, projects: false, contact: false });
   const [active, setActive] = useState("about");
   const [dark, setDark] = useState(false);
   const [positions, setPositions] = useState({});
@@ -195,7 +216,7 @@ export default function Home() {
     <main className={`desktop ${dark ? "dark" : ""}`}>
       <nav className="topbar">
         <button className="brand" onClick={() => launch("about")}><span>JC</span><b>JEREMY CHAN</b></button>
-        <div className="topRight"><a className="topNavLink" href="/projects">PROJECTS</a><span>LONDON, UK</span><div className="topSocial"><a href="https://www.linkedin.com/in/jeremycwchan/" target="_blank" rel="noreferrer" aria-label="LinkedIn"><FontAwesomeIcon icon={faLinkedin} /></a><a href="https://github.com/jeremychan" target="_blank" rel="noreferrer" aria-label="GitHub"><FontAwesomeIcon icon={faGithub} /></a></div><button onClick={() => setDark(v => !v)} aria-label="Toggle colour theme"><FontAwesomeIcon icon={dark ? faSun : faMoon} /></button></div>
+        <div className="topRight"><span>LONDON, UK</span><div className="topSocial"><a href="https://www.linkedin.com/in/jeremycwchan/" target="_blank" rel="noreferrer" aria-label="LinkedIn"><FontAwesomeIcon icon={faLinkedin} /></a><a href="https://github.com/jeremychan" target="_blank" rel="noreferrer" aria-label="GitHub"><FontAwesomeIcon icon={faGithub} /></a></div><button onClick={() => setDark(v => !v)} aria-label="Toggle colour theme"><FontAwesomeIcon icon={dark ? faSun : faMoon} /></button></div>
       </nav>
 
       <div className="launchers" aria-label="Open windows">
@@ -203,7 +224,7 @@ export default function Home() {
       </div>
 
       <div className="gridLines" aria-hidden="true" />
-      {Object.entries(panels).map(([id, p]) => <Window key={id} id={id} title={p.title} position={positions[id] || { x: `${p.x}%`, y: `${p.y}%` }} active={active === id} depth={Math.max(0, order.length - 1 - order.indexOf(id))} open={open[id]} onFocus={focus} onClose={close} onMove={move}>{id === "about" ? <About /> : id === "book" ? <Book /> : id === "models" ? <Models /> : id === "running" ? <Running /> : <Contact />}</Window>)}
+      {Object.entries(panels).map(([id, p]) => <Window key={id} id={id} title={p.title} position={positions[id] || { x: `${p.x}%`, y: `${p.y}%` }} active={active === id} depth={Math.max(0, order.length - 1 - order.indexOf(id))} open={open[id]} onFocus={focus} onClose={close} onMove={move}>{id === "about" ? <About /> : id === "book" ? <Book /> : id === "models" ? <Models /> : id === "running" ? <Running /> : id === "projects" ? <Projects /> : <Contact />}</Window>)}
 
       <footer><span>© {new Date().getFullYear()} JEREMY CHAN</span><span>HOSTED ON VERCEL <i /></span></footer>
     </main>
